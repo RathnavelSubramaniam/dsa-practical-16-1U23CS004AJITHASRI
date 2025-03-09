@@ -30,12 +30,25 @@ public boolean isFull()
 public int deQueue()
 {
 // TYPE YOUR CODE
+int data=-1;
+if (isEmpty())
+{
+System.out.println("Queue is Underflow. No elements to be deleted in Empty Queue");
+
+}
+else
+{
+front++;
+data = queue[front];
+}
+return data;
 }
 
 public boolean isEmpty()
 {
-    // TYPE YOUR CODE
+    return (front==rear);
 }
+
 public void display()
 {
     if(isEmpty())
@@ -52,18 +65,32 @@ public static void main(String[] args)
 {
      int data,n;
     char ch;
-   
+
     Scanner sc=new Scanner(System.in);
      System.out.println("DeQueue Using Array");
     System.out.println("Enter the number of elements to be inserted:");
-//TYPE YOUR CODE HERE
+    n=sc.nextInt();
+    ArrayDeQueue q=new ArrayDeQueue(n);   
+    for(int i=1;i<=n;i++)
+    q.enQueue(i);
      System.out.println("Queue Using Array created with size "+n);
     q.display();
     System.out.println("Do you want to Dequeue the Queue(y/n):");
-//TYPE YOUR CODE HERE
-    
-   }
+ch=sc.next().charAt(0);
+    if(ch=='y')
+    {
+        do{
+            data=q.deQueue();
+            if(data!=-1)
+            {
+            System.out.println("Deleted Element is:"+data);
+            System.out.println("After Dequeue");
+            q.display();
+            }
+            System.out.println("Do you want to Dequeue the Queue(y/n):");
+            ch=sc.next().charAt(0);
+
+    } while(ch!='n');
 }
-
-
-
+}
+}
