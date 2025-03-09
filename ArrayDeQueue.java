@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class ArrayDeQueue {
     protected int capacity;
@@ -36,18 +36,18 @@ public class ArrayDeQueue {
 
     // Method to remove an element from the front of the queue
     public int deQueue() {
+        int data = -1;
         if (isEmpty()) {
-            System.out.println("Queue is Underflow. No elements to dequeue.");
-            return -1; // Indicate that no element was dequeued
+            System.out.println("Queue is Underflow. No elements to be deleted in Empty Queue.");
         } else {
-            int data = queue[front];
+            data = queue[front];
             if (front == rear) {
                 front = rear = -1; // Reset queue when it's empty after dequeuing
             } else {
                 front++; // Move the front pointer forward
             }
-            return data;
         }
+        return data;
     }
 
     // Method to check if the queue is empty
@@ -69,40 +69,38 @@ public class ArrayDeQueue {
     }
 
     public static void main(String[] args) {
+        int data, n;
+        char ch;
+
         Scanner sc = new Scanner(System.in);
         System.out.println("DeQueue Using Array");
-
-        // Asking user to input the size of the queue
         System.out.print("Enter the number of elements to be inserted: ");
-        int n = sc.nextInt();
+        n = sc.nextInt();
+        ArrayDeQueue q = new ArrayDeQueue(n);   
 
-        // Creating queue with given size
-        ArrayDeQueue q = new ArrayDeQueue(n);
-        System.out.println("Queue Using Array created with size " + n);
-
-        // Insert elements into the queue
-        for (int i = 0; i < n; i++) {
-            System.out.print("Enter element " + (i + 1) + ": ");
-            int data = sc.nextInt();
-            q.enQueue(data);
+        // Enqueue elements into the queue
+        for (int i = 1; i <= n; i++) {
+            q.enQueue(i);
         }
 
-        // Displaying the queue
+        System.out.println("Queue Using Array created with size " + n);
         q.display();
 
-        // Asking the user whether they want to dequeue
+        // Ask if user wants to dequeue
         System.out.print("Do you want to Dequeue the Queue (y/n): ");
-        char ch = sc.next().charAt(0);
+        ch = sc.next().charAt(0);
+        if (ch == 'y') {
+            do {
+                data = q.deQueue();
+                if (data != -1) {
+                    System.out.println("Deleted Element is: " + data);
+                    System.out.println("After Dequeue");
+                    q.display();
+                }
+                System.out.print("Do you want to Dequeue the Queue (y/n): ");
+                ch = sc.next().charAt(0);
 
-        // Process dequeuing based on user input
-        while (ch == 'y' || ch == 'Y') {
-            int dequeuedData = q.deQueue();
-            if (dequeuedData != -1) {
-                System.out.println("Dequeued element: " + dequeuedData);
-            }
-            q.display();
-            System.out.print("Do you want to Dequeue again (y/n): ");
-            ch = sc.next().charAt(0);
+            } while (ch != 'n');
         }
 
         sc.close();
